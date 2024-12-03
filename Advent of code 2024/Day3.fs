@@ -28,7 +28,7 @@ let secondPart (input: string) =
    let parts =
        [0] @ (Regex.Matches(input, regexp) |> Seq.map(_.Index) |> Seq.toList) @ [input.Length-1]
        |> List.pairwise
-       |> List.map(fun (x,y) -> input.Substring(x, y-x))       
+       |> List.map(fun (x,y) -> input[x..y-1])       
    let toExclude = parts |> List.where(_.StartsWith("don't()"))
     
    let r =
