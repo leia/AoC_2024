@@ -11,17 +11,17 @@ let main argv =
         $"day{d}a"
         //"day15b"
         
-    let test =
-        InputHandler.readTestFile filename 
-        |> Day2.secondPart
+    // let test =
+    //     InputHandler.readTestfileAsString filename 
+    //     |> Day3.secondPart
         
     // let first =
-    //     InputHandler.readFile filename 
-    //     |> Day2.firstPart 
+    //     InputHandler.readfileAsString filename 
+    //     |> Day3.firstPart 
         
     let second =
-        InputHandler.readFile filename 
-        |> Day2.secondPart
+        InputHandler.readfileAsString filename 
+        |> Day3.secondPart
         
     printfn "%A, %A" second ()
     
