@@ -12,18 +12,18 @@ let main argv =
         //"day15b"
         
     // let test =
-    //     InputHandler.readTestfileAsString filename 
-    //     |> Day3.secondPart
-        
+    //     InputHandler.readTestFile filename 
+    //     |> Day4.secondPart
+    //     
     // let first =
-    //     InputHandler.readfileAsString filename 
-    //     |> Day3.firstPart 
+    //     InputHandler.readFile filename 
+    //     |> Day4.firstPart 
         
     let second =
-        InputHandler.readfileAsString filename 
-        |> Day3.secondPart
+        InputHandler.readFile filename 
+        |> Day4.secondPart
         
-    printfn "%A, %A" second ()
+    printfn "%A" second
     
     stopWatch.Stop()
     printfn "%f" stopWatch.Elapsed.TotalSeconds
