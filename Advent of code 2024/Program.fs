@@ -13,15 +13,15 @@ let main argv =
         
     // let test =
     //     InputHandler.readTestFile filename 
-    //     |> Day4.secondPart
-    //     
+    //     |> Day5.secondPart
+    //      
     // let first =
     //     InputHandler.readFile filename 
-    //     |> Day4.firstPart 
+    //     |> Day5.firstPart 
         
     let second =
         InputHandler.readFile filename 
-        |> Day4.secondPart
+        |> Day5.secondPart
         
     printfn "%A" second
     
