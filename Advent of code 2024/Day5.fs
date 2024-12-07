@@ -49,7 +49,7 @@ let firstPart(input: string seq) =
             checkUpdateWithRules uMap r, u)
         |> List.where(fun f -> fst f = true)
         |> List.map snd
-        |> List.map(fun f -> f |> List.medianIndex)
+        |> List.map(fun f -> f |> List.itemOnMedianIndex)
         |> List.sum  
     res
     
@@ -76,12 +76,12 @@ let secondPart(input: string seq) =
         ||> List.map2(fun u r ->
             let uMap = Map.ofList (u |> List.indexed)
             checkUpdateWithRules uMap r, u, r)
-        |> List.where(fun (x,y,z) -> x = false)
+        |> List.where(fun (x,_,_) -> x = false)
         |> List.map(fun (_,y,z) -> y, z)
         |> List.map(fun (u,r) -> sorter u r)
         
     let r =
         res
-        |> List.map List.medianIndex
+        |> List.map List.itemOnMedianIndex
         |> List.sum        
     r
