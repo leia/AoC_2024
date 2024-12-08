@@ -44,6 +44,31 @@ module Seq =
     let permutationsWithRepetition n L = 
         List.replicate n L |> outerProduct
         
+    /// Rotates a list by one place forward.
+    // let private rotate lst =
+    //     List.tail lst @ [List.head lst]
+    //     
+    // /// Gets all rotations of a list.
+    // let private getRotations lst =
+    //     let rec getAll lst i = if i = 0 then [] else lst :: (getAll (rotate lst) (i - 1))
+    //     getAll lst (List.length lst)
+    //
+    // /// Gets all permutations (without repetition) of specified length from a list.
+    // let rec permutations n lst = 
+    //     match n, lst with
+    //     | 0, _ -> seq [[]]
+    //     | _, [] -> seq []
+    //     | k, _ -> lst |> getRotations |> Seq.collect (fun r -> Seq.map ((@) [List.head r]) (permutations (k - 1) (List.tail r)))
+        
+    /// Gets all combinations (without repetition) of specified length from a list.
+    let rec compinations n lst = 
+        match n, lst with
+        | 0, _ -> seq [[]]
+        | _, [] -> seq []
+        | k, (x :: xs) -> Seq.append (Seq.map ((@) [x]) (compinations (k - 1) xs)) (compinations k xs)
+
+
+        
 
         
         
