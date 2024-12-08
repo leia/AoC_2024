@@ -49,14 +49,13 @@ let getAntiNodes boundX boundY (pair: (int * int) list) (getAll: bool) =
     | false ->
         count pair[0] pair[1] 1
     | true ->
-        let steps = Math.Max(boundX/2, boundY/2)
+        let steps = Math.Min(boundX/Math.Abs((pair[0] |> fst) - (pair[1] |> fst)), boundY / Math.Abs((pair[0] |> snd) - (pair[1] |> snd)))
         
-        [1..boundY]
+        [1..steps]
         |> List.iter(fun i -> count pair[0] pair[1] i)
     res |> Seq.toList
     
-
-let firstPart(input: string seq) =
+let solve (repeat: bool) (input: string seq) =
     let antennas = getAntennas input
     let boundY = input |> Seq.length
     let boundX = input |> Seq.head |> Seq.length
@@ -64,24 +63,15 @@ let firstPart(input: string seq) =
     let antiNodes =
         antennas
         |> List.map(fun f -> f |> snd |> getPairs)
-        |> List.map(fun x -> x |> List.map(fun f -> getAntiNodes boundX boundY f false) )
         |> List.concat
+        |> List.map(fun x -> getAntiNodes boundX boundY x repeat) 
         |> List.concat
         |> List.distinct
     
     antiNodes |> List.length
+    
+let firstPart(input: string seq) =
+    input |> solve false
 
 let secondPart(input: string seq) =
-    let antennas = getAntennas input
-    let boundY = input |> Seq.length
-    let boundX = input |> Seq.head |> Seq.length
-    
-    let antiNodes =
-        antennas
-        |> List.map(fun f -> f |> snd |> getPairs)
-        |> List.concat
-        |> List.map(fun x -> getAntiNodes boundX boundY x true) 
-        |> List.concat
-        |> List.distinct
-    
-    antiNodes |> List.length
+    input |> solve true

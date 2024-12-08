@@ -4,7 +4,7 @@ open Advent_of_code_2024
 
 [<EntryPoint>]
 let main argv =
-    let stopWatch = System.Diagnostics.Stopwatch.StartNew()
+    
     
     let filename =
         let d = DateTime.Now.Day
@@ -13,16 +13,17 @@ let main argv =
         
     let test () =
         InputHandler.readTestFile filename 
-        |> Day8.secondPart
+        |> Day9.secondPart
          
     let first () =
         InputHandler.readFile filename 
-        |> Day8.firstPart 
+        |> Day9.firstPart 
         
     let second () =
         InputHandler.readFile filename 
-        |> Day8.secondPart
-        
+        |> Day9.secondPart
+       
+    let stopWatch = System.Diagnostics.Stopwatch.StartNew()
     printfn "%A" (second())
     
     stopWatch.Stop()
