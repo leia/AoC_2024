@@ -13,17 +13,17 @@ let main argv =
         
     let test () =
         InputHandler.readTestFile filename 
-        |> Day7.firstPart
+        |> Day8.secondPart
          
     let first () =
         InputHandler.readFile filename 
-        |> Day7.firstPart 
+        |> Day8.firstPart 
         
     let second () =
         InputHandler.readFile filename 
-        |> Day7.secondPart
+        |> Day8.secondPart
         
-    printfn "%A" (first())
+    printfn "%A" (second())
     
     stopWatch.Stop()
     printfn "%f" stopWatch.Elapsed.TotalSeconds
