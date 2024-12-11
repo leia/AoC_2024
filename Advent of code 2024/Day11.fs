@@ -51,7 +51,6 @@ let firstPart(input: string seq) =
         |> Map.values
         |> Seq.sum  
     res
-        
     
 let secondPart(input: string seq) =
     let stones = input |> getStones |> Array.map(fun f -> f, 1L) |> Map.ofArray
