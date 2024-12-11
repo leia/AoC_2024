@@ -1,6 +1,6 @@
 ﻿module Advent_of_code_2024.Day9
 
-open System
+let firstPart(input: string seq) = ()
 
 let private parseInput(input: string seq) =
     let lines = input |> Seq.head
