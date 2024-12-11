@@ -13,18 +13,18 @@ let main argv =
         
     let test () =
         InputHandler.readTestFile filename 
-        |> Day9.secondPart
+        |> Day10.firstPart
          
     let first () =
         InputHandler.readFile filename 
-        |> Day9.firstPart 
+        |> Day10.firstPart 
         
     let second () =
         InputHandler.readFile filename 
-        |> Day9.secondPart
+        |> Day10.secondPart
        
     let stopWatch = System.Diagnostics.Stopwatch.StartNew()
-    printfn "%A" (second())
+    printfn "%A %A" (first()) (second())
     
     stopWatch.Stop()
     printfn "%f" stopWatch.Elapsed.TotalSeconds
