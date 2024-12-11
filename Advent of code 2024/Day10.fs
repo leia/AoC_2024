@@ -60,8 +60,7 @@ let getPaths(input: string seq ) (distinct: bool) =
                 |> List.where(fun (coords, _) -> path |> List.exists(fun c -> c = coords) |> not)
                 |> List.map(fun (coords, _) ->
                     findPath (tiles |> List.find(fun t -> t.Coords = coords) ) p acc)
-                |> List.concat
-                
+                |> List.concat                
             res
     let res = 
         tiles
