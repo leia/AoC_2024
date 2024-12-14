@@ -8,6 +8,8 @@ module Math =
         else if (k = 0) then 1
         else if (k > n/2) then binomialCoefficient(n, n-k)
         else (n * binomialCoefficient(n-1, k-1)) / k
+        
+    let median (min: int) (max: int) = (min + max) / 2
 
 module List =
     let isSorted(l: int list) =
@@ -31,6 +33,15 @@ module List =
     
     let inline containsByExistsInline value source =
         List.exists (fun x -> x = value) source
+        
+    let private up = (0, -1)
+    let private down = (0, 1)
+    let private left = (-1, 0)
+    let private right = (1, 0)
+
+    let getNeighbours (x, y) =
+        [up; down; left; right]
+        |> List.map (fun (dx, dy) -> (x + dx, y + dy))
         
         
 module Seq =
