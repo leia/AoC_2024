@@ -72,8 +72,3 @@ let secondPart(input: string seq) =
             getPositions positions
             
     getPositions robotsInit
-        
-        
-    
-   
-    
