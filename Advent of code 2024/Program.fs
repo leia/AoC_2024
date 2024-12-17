@@ -7,22 +7,22 @@ let main argv =
     let filename =
         let d = DateTime.Now.Day
         $"day{d}a"
-        //"day11a"
+        //"day16a"
         
     let test () =
         InputHandler.readTestFile filename 
-        |> Day14.firstPart
+        |> Day17.firstPart
          
     let first () =
         InputHandler.readFile filename 
-        |> Day14.firstPart 
+        |> Day17.firstPart 
         
     let second () =
         InputHandler.readFile filename 
-        |> Day14.secondPart
+        |> Day17.secondPart
        
     let stopWatch = System.Diagnostics.Stopwatch.StartNew()
-    printfn "%A" (second())
+    printfn "%A" (first())
     
     stopWatch.Stop()
     printfn "%f" stopWatch.Elapsed.TotalSeconds

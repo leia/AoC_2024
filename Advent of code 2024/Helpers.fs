@@ -1,6 +1,7 @@
 ﻿module Advent_of_code_2024.Helpers
 
 open System
+open FSharpx.Collections
 
 module Math =
     let rec binomialCoefficient(n: int, k: int) =
@@ -51,32 +52,64 @@ module Seq =
         | L::Ls -> L |> Seq.collect (fun x -> 
                     outerProduct Ls |> Seq.map (fun L -> x::L))
 
-    // Generates all n-element combination from a list L
-    let permutationsWithRepetition n L = 
-        List.replicate n L |> outerProduct
+    // Generates all n-element combination from a list items
+    let permutationsWithRepetition n items = 
+        List.replicate n items |> outerProduct
         
-    /// Rotates a list by one place forward.
-    // let private rotate lst =
-    //     List.tail lst @ [List.head lst]
-    //     
-    // /// Gets all rotations of a list.
-    // let private getRotations lst =
-    //     let rec getAll lst i = if i = 0 then [] else lst :: (getAll (rotate lst) (i - 1))
-    //     getAll lst (List.length lst)
-    //
-    // /// Gets all permutations (without repetition) of specified length from a list.
-    // let rec permutations n lst = 
-    //     match n, lst with
-    //     | 0, _ -> seq [[]]
-    //     | _, [] -> seq []
-    //     | k, _ -> lst |> getRotations |> Seq.collect (fun r -> Seq.map ((@) [List.head r]) (permutations (k - 1) (List.tail r)))
-        
-    /// Gets all combinations (without repetition) of specified length from a list.
-    let rec compinations n lst = 
+    let rec combinations n lst = 
         match n, lst with
         | 0, _ -> seq [[]]
         | _, [] -> seq []
-        | k, (x :: xs) -> Seq.append (Seq.map ((@) [x]) (compinations (k - 1) xs)) (compinations k xs)
+        | k, (x :: xs) -> Seq.append (Seq.map ((@) [x]) (combinations (k - 1) xs)) (combinations k xs)
+        
+///Dijkstra Priority Queue. Combines a (priority) Heap with a visited Set so we can update priorities of a node without having to iterate over the entire heap
+module DPQ =
+    type State<'t> when 't: comparison =
+        { Heap: Heap<int * 't>
+          Visited: Set<'t>
+          Distances: Map<'t, int> }
+
+    let private heapOf s = Heap.ofSeq false s
+
+    let ofSeq s =
+        { Heap = heapOf s
+          Visited = Set.empty
+          Distances = Map.empty }
+
+    let rec tryUncons pq =
+        pq.Heap
+        |> Heap.tryUncons
+        |> Option.bind (fun ((d, h), t) ->
+            if pq.Visited |> Set.contains h then
+                tryUncons { pq with Heap = t }
+            else
+                ((d, h),
+                 { Visited = pq.Visited |> Set.add h
+                   Distances = pq.Distances |> Map.add h d
+                   Heap = t })
+                |> Some)
+
+    let visited x pq = pq.Visited |> Set.contains x
+
+    let updateDistances updates pq =
+        let unvisited =
+            updates
+            |> List.filter (fun n -> pq |> visited (snd n) |> not)
+
+        { pq with Heap = pq.Heap |> Heap.merge (heapOf unvisited) }
+
+module Graphs =
+    ///Immutable version of Dijkstra's shortest path algorithm
+    ///https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm#Pseudocode
+    let rec dijkstra neighbors evaluate (pq: DPQ.State<'a>) =
+        match pq |> DPQ.tryUncons with
+        | None -> pq
+        | Some ((dist, coord), pqrest) ->
+            let neighbours = neighbors coord
+            let costed = neighbours |> List.map (fun n -> (evaluate dist n, n))
+            let nextpq = pqrest |> DPQ.updateDistances costed
+
+            dijkstra neighbors evaluate nextpq
 
 
         

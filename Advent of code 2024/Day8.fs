@@ -24,7 +24,7 @@ let getAntennas(input: string seq) =
 let getPairs (l: (int * int) list) =
     let pairs =
         l
-        |> Seq.compinations 2
+        |> Seq.combinations 2
         |> Seq.toList
     pairs
     
