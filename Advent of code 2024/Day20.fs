@@ -78,8 +78,8 @@ let firstPart(input: string seq) =
                         res <- res + 1
                         
                 if d <= 20 then
-                    let st = noCheats - Math.Abs(d1-d2) - 1 + d
-                    if noCheats - st >= 100 then
+                    let shortcut = noCheats - Math.Abs(d1-d2) - 1 + d
+                    if noCheats - shortcut >= 100 then
                         res2 <- res2 + 1
             )
         )
