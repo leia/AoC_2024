@@ -7,19 +7,19 @@ let main argv =
     let filename =
         let d = DateTime.Now.Day
         $"day{d}a"
-        //"day16a"
+        //"day19a"
         
     let test () =
         InputHandler.readTestFile filename 
-        |> Day17.firstPart
+        |> Day20.firstPart
          
     let first () =
         InputHandler.readFile filename 
-        |> Day17.firstPart 
+        |> Day20.firstPart 
         
     let second () =
         InputHandler.readFile filename 
-        |> Day17.secondPart
+        |> Day20.secondPart
        
     let stopWatch = System.Diagnostics.Stopwatch.StartNew()
     printfn "%A" (first())
